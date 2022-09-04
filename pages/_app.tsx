@@ -1,14 +1,15 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { Box, ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
-import { Footer } from '../components/Footer';
+import { theme } from '../chakra.theme';
 import { Header } from '../components/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+    <ChakraProvider theme={theme}>
+      <Box maxWidth="80rem" marginInline="auto">
+        <Header />
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
   );
 }
