@@ -28,7 +28,7 @@ export function Main({ children }: MainProps) {
             alt="graduation hat"
           />
           {connected && (
-            <Flex>
+            <Flex gap="1.5rem">
               <Link href="/">Home</Link>
               <Link href="/organizacao">Organização</Link>
               <Link href="/universidade">Universidade</Link>

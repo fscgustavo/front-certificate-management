@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           gap="1rem"
         >
           <Heading size="md">Verificar certificado</Heading>
-          <Input placeholder="Select Date and Time" size="md" type="file" />
+          <Input placeholder="Selecione o certificado" size="md" type="file" />
         </Grid>
       </Grid>
     </>
