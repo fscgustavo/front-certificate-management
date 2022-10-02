@@ -20,15 +20,24 @@ export function Main({ children }: MainProps) {
           maxWidth="80rem"
           marginX="auto"
           paddingX="1rem"
+          gap="2rem"
+          wrap="wrap"
+          paddingY={{ base: '1rem', md: '0.5rem' }}
+          direction={{ base: 'column', md: 'row' }}
         >
           <Image
             src="/graduation.svg"
             width="64"
             height="64"
             alt="graduation hat"
+            style={{ flexShrink: 0 }}
           />
           {connected && (
-            <Flex gap="1.5rem">
+            <Flex
+              gap="1.5rem"
+              direction={{ base: 'column', sm: 'row' }}
+              textAlign="center"
+            >
               <Link href="/">Home</Link>
               <Link href="/organizacao">Organização</Link>
               <Link href="/universidade">Universidade</Link>
