@@ -15,9 +15,11 @@
     "@web3modal/ethereum": "^2.0.0-alpha.4",
     "@web3modal/react": "^2.0.0-alpha.4",
     "framer-motion": "^6",
+    "moralis-v1": "^1.11.0",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-moralis": "^1.4.2"
   },
   "devDependencies": {
     "@types/node": "18.7.14",

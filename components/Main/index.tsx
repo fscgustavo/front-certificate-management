@@ -1,7 +1,9 @@
-import { Box, Flex } from '@chakra-ui/react';
-import { ConnectButton, useAccount } from '@web3modal/react';
+import { Avatar, Box, Button, Flex } from '@chakra-ui/react';
+import { ConnectButton } from '@web3modal/react';
 import Image from 'next/image';
 import { ReactNode } from 'react';
+import { useMoralis } from 'react-moralis';
+import { truncateMiddleOfString } from '../../utils/truncateMiddleOfString';
 import { Link } from '../Link';
 
 type MainProps = {
@@ -9,7 +11,7 @@ type MainProps = {
 };
 
 export function Main({ children }: MainProps) {
-  const { connected } = useAccount();
+  const { isAuthenticated, account } = useMoralis();
 
   return (
     <>
@@ -32,7 +34,7 @@ export function Main({ children }: MainProps) {
             alt="graduation hat"
             style={{ flexShrink: 0 }}
           />
-          {connected && (
+          {isAuthenticated && (
             <Flex
               gap="1.5rem"
               direction={{ base: 'column', sm: 'row' }}
@@ -44,7 +46,14 @@ export function Main({ children }: MainProps) {
               <Link href="certificador">Certificador</Link>
             </Flex>
           )}
-          <ConnectButton />
+          {isAuthenticated && account ? (
+            <Button variant="unstyled" display="flex" gap="0.75rem">
+              <Avatar bg="teal.500" />
+              {truncateMiddleOfString({ fullString: account })}
+            </Button>
+          ) : (
+            <ConnectButton />
+          )}
         </Flex>
       </Box>
       <Box maxWidth="80rem" marginX="auto">
