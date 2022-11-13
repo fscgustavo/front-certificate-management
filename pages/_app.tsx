@@ -8,15 +8,13 @@ import { walletConnectConfig } from '../walletconnect.config';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MoralisProvider>
-      <ChakraProvider theme={theme}>
-        <Web3ModalProvider config={walletConnectConfig}>
-          <Main>
-            <Component {...pageProps} />
-          </Main>
-        </Web3ModalProvider>
-      </ChakraProvider>
-    </MoralisProvider>
+    <ChakraProvider theme={theme}>
+      <Web3ModalProvider config={walletConnectConfig}>
+        <Main>
+          <Component {...pageProps} />
+        </Main>
+      </Web3ModalProvider>
+    </ChakraProvider>
   );
 }
 

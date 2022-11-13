@@ -1,4 +1,4 @@
-import { Button, Flex, Grid, Input, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, Input, Text, Textarea } from '@chakra-ui/react';
 
 export function RegisterCertificate() {
   return (
@@ -23,15 +23,6 @@ export function RegisterCertificate() {
             placeholder="Bacharelado de Ciência da Computação"
           />
         </Grid>
-        <Grid rowGap="0.5rem">
-          <Text htmlFor="description" as="label">
-            Descrição
-          </Text>
-          <Input
-            id="description"
-            placeholder="Certificado de João Dias, emitido pela universidade X"
-          />
-        </Grid>
         <Grid templateColumns={{ sm: '1fr 1fr' }} gap="1rem">
           <Grid rowGap="0.5rem">
             <Text htmlFor="description" as="label">
@@ -46,6 +37,12 @@ export function RegisterCertificate() {
             <Input id="expirationDate" type="datetime-local" />
           </Grid>
         </Grid>
+        <Grid rowGap="0.5rem">
+          <Text htmlFor="description" as="label">
+            Descrição
+          </Text>
+          <Textarea id="description" />
+        </Grid>
         <Text>ID do certificado: abc12421321</Text>
       </Grid>
       <Flex gap="1rem" direction={{ base: 'column', sm: 'row' }}>
@@ -55,7 +52,7 @@ export function RegisterCertificate() {
           variant="outline"
           width="100%"
         >
-          Gerar ID
+          Visualizar ID
         </Button>
         <Button type="submit" colorScheme="green" width="100%">
           Registrar

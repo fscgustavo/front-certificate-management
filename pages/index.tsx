@@ -1,4 +1,4 @@
-import { Grid, Heading, Input } from '@chakra-ui/react';
+import { Button, Grid, Heading, Input } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
@@ -23,6 +23,9 @@ const Home: NextPage = () => {
         >
           <Heading size="md">Verificar certificado</Heading>
           <Input placeholder="Selecione o certificado" size="md" type="file" />
+          <Button type="submit" colorScheme="green" width="100%">
+            Enviar
+          </Button>
         </Grid>
       </Grid>
     </>
