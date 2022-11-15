@@ -10,6 +10,9 @@ import {
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import { ethers } from 'ethers';
+import { useAccount, useContractRead } from '@web3modal/react';
+import { useContractAddress } from '../../hooks/useContractAdresses';
+import certificateManagementABI from '../../constants/CertificateManagement.json';
 
 type FormData = {
   title: string;
@@ -29,6 +32,19 @@ export function RegisterCertificate() {
   const inputFileRef = useRef<HTMLInputElement>({} as HTMLInputElement);
   const downloadAnchorRef = useRef<HTMLAnchorElement>({} as HTMLAnchorElement);
   const [newCertificateUrl, setNewCertificateUrl] = useState('');
+  const { contractAddress } = useContractAddress();
+
+  const { data } = useContractRead({
+    address: contractAddress,
+    abi: certificateManagementABI,
+    functionName: 'getUniversityOfCertifier',
+  });
+
+  console.log('getUniversityOfCertifier', data);
+
+  const {
+    account: { address: certifierAddress },
+  } = useAccount();
 
   function updateFormValue(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -49,7 +65,7 @@ export function RegisterCertificate() {
 
     const metadataStructure = {
       title: form.title,
-      author: '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65',
+      author: certifierAddress,
       subject: descriptionWithExpiration,
       creator: '0x728729b313b59F78dAa0Ad7D13A7F41cb10B0040',
       producer: '0xefA95A16a47BCDff135E83eC6fe158787489170D',

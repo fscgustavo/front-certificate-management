@@ -15,7 +15,7 @@ export const walletConnectConfig: ConfigOptions = {
   ethereum: {
     appName: 'web3Modal',
     autoConnect: true,
-    chains: [chains.goerli],
+    chains: [chains.goerli, chains.localhost],
     providers: [
       providers.walletConnectProvider({
         projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
