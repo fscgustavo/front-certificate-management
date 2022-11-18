@@ -9,6 +9,7 @@ specifiers:
   '@types/react-dom': 18.0.6
   '@typescript-eslint/eslint-plugin': ^5.36.1
   '@typescript-eslint/parser': ^5.36.1
+  '@web3modal/core': 2.0.0-beta.3
   '@web3modal/ethereum': 2.0.0-beta.3
   '@web3modal/react': 2.0.0-beta.3
   eslint: 8.23.0
@@ -30,6 +31,7 @@ dependencies:
   '@chakra-ui/react': 2.3.4_7mjij5crbumslchrl6x6tqkxly
   '@emotion/react': 11.10.4_7v64pk2mkrohwh22gx7lrz5ive
   '@emotion/styled': 11.10.4_kjddpxqkh75n32dccdij3kv22i
+  '@web3modal/core': 2.0.0-beta.3_bim4ztyyazjqowqkrt4qwo6xeq
   '@web3modal/ethereum': 2.0.0-beta.3_nmpcl7fxerj4zzce7qukhhcalq
   '@web3modal/react': 2.0.0-beta.3_rd5p6va3b75lcauitw6wc7n26m
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y

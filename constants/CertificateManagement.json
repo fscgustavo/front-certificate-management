@@ -1,1 +1,295 @@
-[{"type":"constructor","payable":false,"inputs":[]},{"type":"error","name":"ExistentCertificate","inputs":[{"type":"bytes32","name":"certificateId"},{"type":"uint256","name":"issueDate"}]},{"type":"error","name":"ExistentCertifier","inputs":[{"type":"address","name":"certifier"}]},{"type":"error","name":"InexistentCertificate","inputs":[{"type":"bytes32","name":"certificateId"}]},{"type":"error","name":"InvalidCertifier","inputs":[{"type":"address","name":"sender"}]},{"type":"error","name":"InvalidDates","inputs":[{"type":"uint256","name":"issueDate"},{"type":"uint256","name":"expirationDate"}]},{"type":"error","name":"InvalidOrganization","inputs":[{"type":"address","name":"organization"}]},{"type":"error","name":"InvalidRevoker","inputs":[{"type":"address","name":"sender"}]},{"type":"error","name":"InvalidSuperior","inputs":[{"type":"address","name":"sender"}]},{"type":"error","name":"InvalidUniversity","inputs":[{"type":"address","name":"sender"}]},{"type":"event","anonymous":false,"name":"CertificateRegistered","inputs":[{"type":"address","name":"certifier","indexed":true},{"type":"bytes32","name":"certificateId","indexed":true}]},{"type":"event","anonymous":false,"name":"CertificateRevoked","inputs":[{"type":"address","name":"revoker","indexed":true},{"type":"bytes32","name":"certificateId","indexed":true},{"type":"string","name":"reason","indexed":false}]},{"type":"event","anonymous":false,"name":"CertifierAdded","inputs":[{"type":"address","name":"university","indexed":true},{"type":"address","name":"certifier","indexed":true}]},{"type":"event","anonymous":false,"name":"CertifierRemoved","inputs":[{"type":"address","name":"certifierSuperior","indexed":true},{"type":"address","name":"certifier","indexed":true}]},{"type":"event","anonymous":false,"name":"OrganizationMemberAdded","inputs":[{"type":"address","name":"organization","indexed":true},{"type":"address","name":"newMember","indexed":true}]},{"type":"event","anonymous":false,"name":"OrganizationMemberRemoved","inputs":[{"type":"address","name":"organization","indexed":true},{"type":"address","name":"removedMember","indexed":true}]},{"type":"event","anonymous":false,"name":"UniversityAdded","inputs":[{"type":"address","name":"organization","indexed":true},{"type":"address","name":"university","indexed":true}]},{"type":"event","anonymous":false,"name":"UniversityDiscredited","inputs":[{"type":"address","name":"organization","indexed":true},{"type":"address","name":"university","indexed":true},{"type":"string","name":"reason","indexed":false}]},{"type":"function","name":"addCertifier","constant":false,"payable":false,"inputs":[{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"addOrganization","constant":false,"payable":false,"inputs":[{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"addUniversity","constant":false,"payable":false,"inputs":[{"type":"address","name":"account"},{"type":"string","name":"universityURI"}],"outputs":[]},{"type":"function","name":"discreditUniversity","constant":false,"payable":false,"inputs":[{"type":"address","name":"account"},{"type":"string","name":"reason"}],"outputs":[]},{"type":"function","name":"getCertificate","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"bytes32","name":"certificateId"}],"outputs":[{"type":"tuple","components":[{"type":"tuple","name":"data","components":[{"type":"address","name":"certifier"},{"type":"address","name":"university"},{"type":"uint256","name":"issueDate"},{"type":"uint256","name":"expirationDate"}]},{"type":"tuple","name":"status","components":[{"type":"bool","name":"invalid"},{"type":"string","name":"description"}]}]}]},{"type":"function","name":"getUniversity","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"address","name":"university"}],"outputs":[{"type":"tuple","components":[{"type":"bool","name":"active"},{"type":"string","name":"URI"}]}]},{"type":"function","name":"getUniversityDiscreditReason","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"address","name":"university"}],"outputs":[{"type":"string"}]},{"type":"function","name":"getUniversityOfCertifier","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"address","name":"certifier"}],"outputs":[{"type":"address"}]},{"type":"function","name":"isOrganization","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"address","name":"account"}],"outputs":[{"type":"bool"}]},{"type":"function","name":"registerCertificate","constant":false,"payable":false,"inputs":[{"type":"bytes32","name":"certificateId"},{"type":"uint256","name":"issueDate"},{"type":"uint256","name":"expirationDate"}],"outputs":[]},{"type":"function","name":"removeCertifier","constant":false,"payable":false,"inputs":[{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"removeOrganization","constant":false,"payable":false,"inputs":[{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"revokeCertificate","constant":false,"payable":false,"inputs":[{"type":"bytes32","name":"certificateId"},{"type":"string","name":"reason"}],"outputs":[]}]
+[
+  { "type": "constructor", "payable": false, "inputs": [] },
+  {
+    "type": "error",
+    "name": "ExistentCertificate",
+    "inputs": [
+      { "type": "bytes32", "name": "certificateId" },
+      { "type": "uint256", "name": "issueDate" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ExistentCertifier",
+    "inputs": [{ "type": "address", "name": "certifier" }]
+  },
+  {
+    "type": "error",
+    "name": "InexistentCertificate",
+    "inputs": [{ "type": "bytes32", "name": "certificateId" }]
+  },
+  {
+    "type": "error",
+    "name": "InvalidCertifier",
+    "inputs": [{ "type": "address", "name": "sender" }]
+  },
+  {
+    "type": "error",
+    "name": "InvalidDates",
+    "inputs": [
+      { "type": "uint256", "name": "issueDate" },
+      { "type": "uint256", "name": "expirationDate" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidOrganization",
+    "inputs": [{ "type": "address", "name": "organization" }]
+  },
+  {
+    "type": "error",
+    "name": "InvalidRevoker",
+    "inputs": [{ "type": "address", "name": "sender" }]
+  },
+  {
+    "type": "error",
+    "name": "InvalidSuperior",
+    "inputs": [{ "type": "address", "name": "sender" }]
+  },
+  {
+    "type": "error",
+    "name": "InvalidUniversity",
+    "inputs": [{ "type": "address", "name": "sender" }]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "CertificateRegistered",
+    "inputs": [
+      { "type": "address", "name": "certifier", "indexed": true },
+      { "type": "bytes32", "name": "certificateId", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "CertificateRevoked",
+    "inputs": [
+      { "type": "address", "name": "revoker", "indexed": true },
+      { "type": "bytes32", "name": "certificateId", "indexed": true },
+      { "type": "string", "name": "reason", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "CertifierAdded",
+    "inputs": [
+      { "type": "address", "name": "university", "indexed": true },
+      { "type": "address", "name": "certifier", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "CertifierRemoved",
+    "inputs": [
+      { "type": "address", "name": "certifierSuperior", "indexed": true },
+      { "type": "address", "name": "certifier", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "OrganizationMemberAdded",
+    "inputs": [
+      { "type": "address", "name": "organization", "indexed": true },
+      { "type": "address", "name": "newMember", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "OrganizationMemberRemoved",
+    "inputs": [
+      { "type": "address", "name": "organization", "indexed": true },
+      { "type": "address", "name": "removedMember", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "UniversityAdded",
+    "inputs": [
+      { "type": "address", "name": "organization", "indexed": true },
+      { "type": "address", "name": "university", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "UniversityDiscredited",
+    "inputs": [
+      { "type": "address", "name": "organization", "indexed": true },
+      { "type": "address", "name": "university", "indexed": true },
+      { "type": "string", "name": "reason", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "addCertifier",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "account" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "addOrganization",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "account" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "addUniversity",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "account" },
+      { "type": "string", "name": "universityURI" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "discreditUniversity",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "account" },
+      { "type": "string", "name": "reason" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "getCertificate",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "bytes32", "name": "certificateId" }],
+    "outputs": [
+      {
+        "type": "tuple",
+        "components": [
+          {
+            "type": "tuple",
+            "name": "data",
+            "components": [
+              { "type": "address", "name": "certifier" },
+              { "type": "address", "name": "university" },
+              { "type": "uint256", "name": "issueDate" },
+              { "type": "uint256", "name": "expirationDate" }
+            ]
+          },
+          {
+            "type": "tuple",
+            "name": "status",
+            "components": [
+              { "type": "bool", "name": "invalid" },
+              { "type": "string", "name": "description" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "getUniversity",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "university" }],
+    "outputs": [
+      {
+        "type": "tuple",
+        "components": [
+          { "type": "bool", "name": "active" },
+          { "type": "string", "name": "URI" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "getUniversityDiscreditReason",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "university" }],
+    "outputs": [{ "type": "string" }]
+  },
+  {
+    "type": "function",
+    "name": "getUniversityOfCertifier",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "certifier" }],
+    "outputs": [{ "type": "address" }]
+  },
+  {
+    "type": "function",
+    "name": "isOrganization",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "account" }],
+    "outputs": [{ "type": "bool" }]
+  },
+  {
+    "type": "function",
+    "name": "registerCertificate",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "bytes32", "name": "certificateId" },
+      { "type": "uint256", "name": "issueDate" },
+      { "type": "uint256", "name": "expirationDate" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "removeCertifier",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "account" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "removeOrganization",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "account" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "revokeCertificate",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "bytes32", "name": "certificateId" },
+      { "type": "string", "name": "reason" }
+    ],
+    "outputs": []
+  }
+]
