@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex } from '@chakra-ui/react';
 import { ConnectButton, useAccount, useDisconnect } from '@web3modal/react';
 import Image from 'next/image';
 import { ReactNode } from 'react';
-import { truncateMiddleOfString } from '../../utils/truncateMiddleOfString';
+import { truncateMiddleOfString } from '../../utils';
 import { Link } from '../Link';
 
 type MainProps = {
@@ -13,8 +13,6 @@ function AuthComponent() {
   const {
     account: { isConnected, address, status },
   } = useAccount();
-
-  console.log(status);
 
   const disconnect = useDisconnect();
 

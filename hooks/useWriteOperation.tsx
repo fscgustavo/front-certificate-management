@@ -3,7 +3,7 @@ import type { ContractCtrlWriteArgs } from '@web3modal/core';
 import networkMapping from '../constants/networkMapping.json';
 import certificateManagementABI from '../constants/CertificateManagement.json';
 
-export function useReadOperation(props: ContractCtrlWriteArgs) {
+export function useWriteOperation(props: ContractCtrlWriteArgs) {
   const { network } = useNetwork();
 
   const chainId = network?.chain?.id.toString() ?? '31337';
