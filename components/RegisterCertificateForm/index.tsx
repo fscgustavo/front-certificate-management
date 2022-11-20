@@ -64,7 +64,7 @@ export function RegisterCertificateForm({
   const { certificateID, metadata } = getCertificateStructure();
 
   const {
-    write: registerCertificate,
+    writeAsync: registerCertificate,
     isLoading: isRegistering,
     ...props
   } = useWriteOperation({
@@ -95,7 +95,9 @@ export function RegisterCertificateForm({
       return;
     }
 
-    const transaction = await registerCertificate();
+    const transaction = await registerCertificate?.();
+
+    console.log('teste');
 
     if (transaction) {
       const downloadURL = await generateNewURL({

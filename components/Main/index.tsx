@@ -1,27 +1,28 @@
 import { Avatar, Box, Button, Flex } from '@chakra-ui/react';
-import { ConnectButton, useAccount, useDisconnect } from '@web3modal/react';
+import { Web3Button } from '@web3modal/react';
+import { useAccount, useDisconnect } from 'wagmi';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import { truncateMiddleOfString } from '../../utils';
 import { Link } from '../Link';
+import { useIsMounted } from '../../hooks/useIsMounted';
 
 type MainProps = {
   children: ReactNode;
 };
 
 function AuthComponent() {
-  const {
-    account: { isConnected, address, status },
-  } = useAccount();
+  const isMounted = useIsMounted();
+  const { isConnected, address = '0x0', status } = useAccount();
 
-  const disconnect = useDisconnect();
+  const { disconnect } = useDisconnect();
 
-  if (!status) {
+  if (!status || !isMounted()) {
     return null;
   }
 
   if (!isConnected) {
-    return <ConnectButton />;
+    return <Web3Button />;
   }
 
   return (
@@ -40,7 +41,7 @@ function AuthComponent() {
         variant="unstyled"
         display="flex"
         gap="0.75rem"
-        onClick={disconnect}
+        onClick={() => disconnect()}
       >
         <Avatar bg="teal.500" size="sm" />
         {truncateMiddleOfString({ fullString: address })}

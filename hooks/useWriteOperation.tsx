@@ -1,18 +1,19 @@
-import { useContractWrite, useNetwork } from '@web3modal/react';
-import type { ContractCtrlWriteArgs } from '@web3modal/core';
+import { useContractWrite, useNetwork } from 'wagmi';
 import networkMapping from '../constants/networkMapping.json';
 import certificateManagementABI from '../constants/CertificateManagement.json';
 
-export function useWriteOperation(props: ContractCtrlWriteArgs) {
-  const { network } = useNetwork();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- no access to the types :(
+export function useWriteOperation(props: any) {
+  const { chain } = useNetwork();
 
-  const chainId = network?.chain?.id.toString() ?? '31337';
+  const chainId = chain?.id ?? '31337';
 
   const address =
     networkMapping[chainId as keyof typeof networkMapping]
       .CertificateManagement[0];
 
   return useContractWrite({
+    mode: 'recklesslyUnprepared',
     address,
     abi: certificateManagementABI,
     ...props,

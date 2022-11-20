@@ -1,13 +1,11 @@
 import { Spinner, Text } from '@chakra-ui/react';
-import { useAccount } from '@web3modal/react';
+import { useAccount } from 'wagmi';
 import { useReadOperation } from '../../hooks/useReadOperation';
 import { isInvalidAddress } from '../../utils';
 import { RegisterCertificateForm } from '../RegisterCertificateForm';
 
 export function RegisterCertificate() {
-  const {
-    account: { address: certifierAddress },
-  } = useAccount();
+  const { address: certifierAddress = '0x0' } = useAccount();
 
   const { data, isLoading } = useReadOperation({
     functionName: 'getUniversityOfCertifier',
@@ -25,7 +23,7 @@ export function RegisterCertificate() {
   return (
     <RegisterCertificateForm
       certifierAddress={certifierAddress}
-      universityOfCertifier={data as string}
+      universityOfCertifier={data}
     />
   );
 }
