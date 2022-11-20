@@ -3,7 +3,7 @@ export type MetadataStructure = {
   subject: string;
   author: string;
   creator: string;
-  producer: string;
+  producer?: string;
   keywords?: string[];
-  creationDate: string;
+  creationDate: Date;
 };

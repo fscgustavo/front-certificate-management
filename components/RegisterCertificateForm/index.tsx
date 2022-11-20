@@ -17,6 +17,7 @@ type FormData = {
   issueDate: string;
   expirationDate: string;
   description: string;
+  fileName: string;
 };
 
 type FormProps = {
@@ -33,11 +34,11 @@ export function RegisterCertificateForm({
     issueDate: '',
     expirationDate: '',
     description: '',
+    fileName: '',
   });
 
   const inputFileRef = useRef<HTMLInputElement>({} as HTMLInputElement);
   const downloadAnchorRef = useRef<HTMLAnchorElement>({} as HTMLAnchorElement);
-  const [newCertificateUrl, setNewCertificateUrl] = useState('');
 
   function getCertificateStructure() {
     const descriptionWithExpiration = `${form.description}. Data de expiração: ${form.expirationDate}`;
@@ -47,8 +48,7 @@ export function RegisterCertificateForm({
       author: certifierAddress,
       subject: descriptionWithExpiration,
       creator: universityOfCertifier,
-      producer: universityOfCertifier,
-      creationDate: form.issueDate,
+      creationDate: new Date(form.issueDate),
     };
 
     const metadataString = JSON.stringify(metadataStructure);
@@ -97,20 +97,16 @@ export function RegisterCertificateForm({
 
     const transaction = await registerCertificate?.();
 
-    console.log('teste');
+    const downloadURL = await generateNewURL({
+      files: inputFileRef.current.files,
+      metadata,
+      certificateHash: certificateID,
+      transactionHash: transaction?.hash ?? '',
+    });
 
-    if (transaction) {
-      const downloadURL = await generateNewURL({
-        files: inputFileRef.current.files,
-        metadata,
-        certificateHash: certificateID,
-        transactionHash: transaction?.hash ?? '',
-      });
+    downloadAnchorRef.current.href = downloadURL;
 
-      setNewCertificateUrl(downloadURL);
-
-      downloadAnchorRef.current.click();
-    }
+    downloadAnchorRef.current.click();
   }
 
   return (
@@ -127,8 +123,9 @@ export function RegisterCertificateForm({
                 name="certificate"
                 type="file"
                 placeholder="Selecione o certificado"
-                ref={inputFileRef}
                 required
+                accept=".pdf"
+                ref={inputFileRef}
               />
             </Grid>
             <Grid rowGap="0.5rem">
@@ -171,6 +168,12 @@ export function RegisterCertificateForm({
               </Text>
               <Textarea id="description" onChange={updateFormValue} />
             </Grid>
+            <Grid rowGap="0.5rem">
+              <Text htmlFor="fileName" as="label">
+                Nome do arquivo a ser salvo
+              </Text>
+              <Input id="fileName" onChange={updateFormValue} required />
+            </Grid>
             <Text>ID do certificado: {certificateID}</Text>
           </Grid>
           <Flex gap="1rem" direction={{ base: 'column', sm: 'row' }}>
@@ -183,11 +186,10 @@ export function RegisterCertificateForm({
               Registrar
             </Button>
           </Flex>
-
           <ChakraLink
             display="none"
-            href={newCertificateUrl}
-            download="registered_certificate"
+            href=""
+            download={form.fileName}
             ref={downloadAnchorRef}
           >
             Baixar certificado registrado

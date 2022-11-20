@@ -8,6 +8,9 @@ const nextConfig = {
     legacyBrowsers: false,
     newNextLinkBehavior: true,
   },
+  images: {
+    domains: ['ipfs.io'],
+  },
 };
 
 module.exports = nextConfig;

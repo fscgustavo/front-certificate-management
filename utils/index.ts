@@ -24,3 +24,9 @@ export function truncateMiddleOfString({
 
 export const isInvalidAddress = (address: string) =>
   address?.includes('0x000000000');
+
+export const bigNumberToLocaleDateString = (date: number) => {
+  const localeDate = new Date(date).toLocaleDateString('pt-BR');
+
+  return date === 0 ? 'Data indefinida' : localeDate;
+};

@@ -22,7 +22,6 @@ export async function generateNewURL({
   certificate.setSubject(metadata.subject);
   certificate.setAuthor(metadata.author);
   certificate.setCreator(metadata.creator);
-  certificate.setProducer(metadata.producer);
   certificate.setCreationDate(new Date(metadata.creationDate));
   certificate.setKeywords([
     `ID do certificado: ${certificateHash}`,
