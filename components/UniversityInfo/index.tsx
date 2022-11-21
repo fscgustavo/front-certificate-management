@@ -19,25 +19,21 @@ export function UniversityInfo({ address }: { address: string }) {
     args: [address],
   });
 
-  const { data } = useSWR(
-    'https://ipfs.io/ipfs/QmPAKsM4UTFSRt89GaMzDY7S76YCKTEu1d8mESQoFpr8Ee',
-    fetcher,
-  );
+  const cid = contentCID.replace('ipfs://', '');
 
-  console.log({ data });
-
-  console.log(isValidUniversity, contentCID);
+  const { data } = useSWR(`https://ipfs.io/ipfs/${cid}`, fetcher, {});
 
   if (!data) {
     return <Spinner />;
   }
 
   return (
-    <Grid gap="1rem">
+    <Grid gap="0.5rem">
       <Text fontWeight="bold" fontSize="1.25rem">
         Dados da universidade
       </Text>
       <Text>Nome: {data.name}</Text>
+      <Text>Status: {isValidUniversity ? 'Válida' : 'Inválida'}</Text>
       <div>
         <Image
           src={getGatewaySource(data.logo)}

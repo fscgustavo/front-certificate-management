@@ -20,7 +20,7 @@ export function RegisterCertificate() {
     return <Spinner display="block" marginX="auto" />;
   }
 
-  if (isInvalidAddress(data as string)) {
+  if (isInvalidAddress(data)) {
     return <Text>Apenas certificadores podem registrar um certificado</Text>;
   }
 

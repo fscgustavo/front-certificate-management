@@ -7,3 +7,9 @@ export type MetadataStructure = {
   keywords?: string[];
   creationDate: Date;
 };
+
+export type Certificate = {
+  hash: string;
+  metadata?: MetadataStructure;
+  keywords?: string;
+};

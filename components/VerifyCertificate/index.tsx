@@ -1,41 +1,10 @@
 import { Button, Grid, Heading, Input, Text } from '@chakra-ui/react';
-import { ethers } from 'ethers';
-import { PDFDocument } from 'pdf-lib';
 import { FormEvent, useRef, useState } from 'react';
 import { useReadOperation } from '../../hooks/useReadOperation';
-import { MetadataStructure } from '../../types';
+import { Certificate } from '../../types';
 import { bigNumberToLocaleDateString, isInvalidAddress } from '../../utils';
+import { getCertificateHash } from '../../utils/certificate';
 import { UniversityInfo } from '../UniversityInfo';
-
-async function getCertificateHash({ files }: { files: FileList }) {
-  const certificateArrayBuffer = await files[0].arrayBuffer();
-
-  const certificate = await PDFDocument.load(certificateArrayBuffer);
-
-  const metadata = {
-    title: certificate.getTitle() ?? '',
-    author: certificate.getAuthor() ?? '',
-    subject: certificate.getSubject() ?? '',
-    creator: certificate.getCreator() ?? '',
-    creationDate: certificate.getCreationDate() ?? new Date(0),
-  };
-
-  const keywords = certificate.getKeywords();
-
-  const metadataString = JSON.stringify(metadata);
-
-  const hash = ethers.utils.id(metadataString);
-
-  console.log({ metadata, keywords, hash });
-
-  return { metadata, keywords, hash };
-}
-
-type Certificate = {
-  hash: string;
-  metadata?: MetadataStructure;
-  keywords?: string;
-};
 
 export function VerifyCertificate() {
   const inputFileRef = useRef<HTMLInputElement>({} as HTMLInputElement);
@@ -117,7 +86,7 @@ export function VerifyCertificate() {
             {isInvalid ? (
               <>
                 <Text color="red.500">Certificado inválido</Text>
-                <Text>{revocationReason}</Text>
+                <Text>Motivo da revogação: {revocationReason}</Text>
               </>
             ) : (
               <Text color="green.400">Certificado válido</Text>

@@ -10,7 +10,7 @@ import {
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { ethers } from 'ethers';
 import { useWriteOperation } from '../../hooks/useWriteOperation';
-import { generateNewURL } from './certificate';
+import { generateNewURL } from '../../utils/certificate';
 
 type FormData = {
   title: string;
@@ -63,16 +63,11 @@ export function RegisterCertificateForm({
 
   const { certificateID, metadata } = getCertificateStructure();
 
-  const {
-    writeAsync: registerCertificate,
-    isLoading: isRegistering,
-    ...props
-  } = useWriteOperation({
-    functionName: 'registerCertificate',
-    args: [certificateID, form.issueDate, form.expirationDate],
-  });
-
-  console.log({ isRegistering, ...props });
+  const { writeAsync: registerCertificate, isLoading: isRegistering } =
+    useWriteOperation({
+      functionName: 'registerCertificate',
+      args: [certificateID, form.issueDate, form.expirationDate],
+    });
 
   function updateFormValue(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -107,6 +102,8 @@ export function RegisterCertificateForm({
     downloadAnchorRef.current.href = downloadURL;
 
     downloadAnchorRef.current.click();
+
+    event.currentTarget.reset();
   }
 
   return (
